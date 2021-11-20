@@ -1,74 +1,106 @@
-"use strict";
+const player = document.querySelector(".player"),
+  prevBtn = document.querySelector(".prev"),
+  playBtn = document.querySelector(".play"),
+  nextBtn = document.querySelector(".next"),
+  audio = document.querySelector(".audio"),
+  progressContainer = document.querySelector(".progress__container"),
+  title = document.querySelector(".song"),
+  cover = document.querySelector(".cover__img"),
+  progress = document.querySelector(".progress"),
+  imgSrc = document.querySelector(".img__src"),
+  range = document.querySelector('.range');
 
-let numberOfFilms;
+const songs = [
+  "Hollywood Undead - Gravity",
+  "Gorillaz - Clint Eastwood",
+  "Linkin Park - Numb",
+];
 
-const personalMovieDB = {
-  count: 0,
-  movies: {},
-  actors: {},
-  genres: [],
-  privat: false,
-  start: function () {
-    numberOfFilms = +prompt("Сколько фильмов вы посмотрели??", "");
+let songIndex = 0;
 
-    while (
-      personalMovieDB.count == "" ||
-      personalMovieDB.count == null ||
-      isNaN(personalMovieDB.count)
-    ) {
-      personalMovieDB.count = +prompt("Сколько фильмов вы посмотрели??", "");
-    }
-  },
-  rememberMyFilms: function () {
-    for (let i = 0; i < 2; i++) {
-      const a = prompt("Какой последний фильм вы посмотрели?", ""),
-        b = prompt("Какова его оценка?", "");
+function loadSong(song) {
+  title.innerHTML = song;
+  audio.src = `audio/${song}.mp3`;
+  cover.src = `images/cover${songIndex + 1}.jpg`;
+}
 
-      if (a != null && b != null && a != "" && b != "" && a.length < 50) {
-        personalMovieDB.movies[a] = b;
-        console.log("done!");
-      } else {
-        console.log("error!");
-        i--;
-      }
-    }
-  },
-  myMovieSkills: function () {
-    if (personalMovieDB.count < 10) {
-      console.log("Слишком мало");
-    } else if (personalMovieDB.count >= 10 && personalMovieDB.count <= 30) {
-      console.log("Достаточно");
-    } else if (personalMovieDB.count > 30) {
-      console.log("Вы киноман");
-    } else {
-      console.log("Ошибка");
-    }
-  },
-  showMyDb: function () {
-    if (personalMovieDB.privat == false) {
-      console.log(personalMovieDB);
-    }
-  },
-  toggleVisibleMyDB: function () {
-    if (personalMovieDB.privat) {
-      personalMovieDB.privat == false;
-    } else {
-      personalMovieDB.privat == true;
-    }
-  },
-  writeYourGenres: function () {
-    for (let i = 1; i <= 3; i++) {
-      let genre = prompt(`Ваш любимый жанр под номером ${i}`);
+loadSong(songs[songIndex]);
 
-      if (genre === "" || genre == null) {
-        console.log("Вы ввели неверные данные или не ввели их вообще");
-        i--;
-      } else {
-        personalMovieDB.genres[i - 1] = genre;
-      }
-    }
-    personalMovieDB.genres.forEach((item, i) => {
-      console.log(`Любимый жанр ${i+1} - это ${item}`);
-    });
+function playSong() {
+  player.classList.add("play");
+  imgSrc.src = "./images/pause.svg";
+  audio.play();
+}
+
+function pauseSong() {
+  player.classList.remove("play");
+  imgSrc.src = "./images/play.svg";
+  audio.pause();
+}
+
+playBtn.addEventListener("click", () => {
+  const isPlaying = player.classList.contains("play");
+  if (isPlaying) {
+    pauseSong();
+  } else {
+    playSong();
   }
-};
+});
+
+function nextSong() {
+  songIndex++;
+
+  if (songIndex > songs.length - 1) {
+    songIndex = 0;
+  }
+
+  loadSong(songs[songIndex]);
+  playSong();
+}
+
+nextBtn.addEventListener("click", () => {
+  nextSong();
+});
+
+function prevSong() {
+  songIndex--;
+  if (songIndex < 0) {
+    songIndex = songs.length - 1;
+  }
+  loadSong(songs[songIndex]);
+  playSong();
+}
+
+prevBtn.addEventListener("click", () => {
+  prevSong();
+});
+
+function updateProgress(e) {
+  const {
+    duration,
+    currentTime
+  } = e.srcElement;
+  const progressPercent = (currentTime / duration) * 100;
+  progress.style.width = `${progressPercent}%`;
+}
+
+audio.addEventListener("timeupdate", updateProgress);
+
+function setProgress(e) {
+  const width = this.clientWidth;
+  const clickX = e.offsetX;
+  const duration = audio.duration;
+
+  audio.currentTime = (clickX / width) * duration;
+}
+
+progressContainer.addEventListener("click", setProgress);
+
+audio.addEventListener("ended", nextSong);
+
+function setVolume() {
+  let value = range.value / 100;
+  audio.volume = value;
+}
+
+range.addEventListener('click', setVolume);

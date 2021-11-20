@@ -2,15 +2,42 @@
 <html lang="ru">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>start html</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>m1ghty07 AudioPlayer</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
-
-
+  <div class="wrapper">
+    <div class="player">
+      <div class="title">Now playing</div>
+      <div class="cover">
+        <img class="cover__img" src="./images/cover1.jpg" alt="" />
+      </div>
+      <div class="song">Song name</div>
+      <input class="range" min="0" max="100" value="100" type="range">
+      <audio class="audio" src="./audio/Hollywood Undead - Gravity.mp3"></audio>
+      <div class="progress__container">
+        <div class="progress"></div>
+      </div>
+      <div class="buttons">
+        <div class="btn prev">
+          <img src="./images/rewind-button.svg" alt="prev" width="50" />
+        </div>
+        <div class="btn play">
+          <img class="img__src" src="./images/play.svg" alt="play" width="50" />
+        </div>
+        <div class="btn next">
+          <img src="./images/forward-button.svg" alt="next" width="50" />
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
+
 </html>

@@ -1,10 +1,10 @@
-html{
+html {
   box-sizing: border-box;
 }
 
 *,
 *::after,
-*::before{
+*::before {
   box-sizing: inherit;
 }
 
@@ -46,4 +46,125 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+body {
+  font-size: 24px;
+  font-weight: 500;
+  font-style: normal;
+  font-family: "Roboto", sans-serif;
+  background-color: #fff;
+}
+
+.wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: -webkit-linear-gradient(45deg, rgb(116, 116, 116), rgb(1, 15, 15));
+  background: -moz-linear-gradient(45deg, rgb(116, 116, 116), rgb(1, 15, 15));
+  background: linear-gradient(45deg, rgb(116, 116, 116), rgb(1, 15, 15));
+}
+
+.player {
+  background-color: #ffffff;
+  border-radius: 30px;
+  max-width: 388px;
+  width: 100%;
+  padding: 25px;
+}
+
+.title {
+  font-size: 14px;
+  line-height: 16px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  text-shadow: 5px 6px 7px #F0EC0B;
+}
+
+.cover {
+  display: flex;
+  justify-content: center;
+  margin: 25px 0;
+}
+
+.song {
+  font-size: 24px;
+  line-height: 28px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+.range {
+  margin-top: 40px;
+}
+
+.progress__container {
+  background-color: rgb(22, 21, 21);
+  border-radius: 5px;
+  width: 100%;
+  height: 10px;
+  margin-top: 43px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.progress {
+  background-color: #f0ec0b;
+  height: 6px;
+  border-radius: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 220px;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 45px;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+input[type="range"] {
+  width: 100px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  border-radius: 10px/100%;
+  height: 2px;
+  border: 1px solid black;
+  background-color: rgb(195, 184, 184);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  background: #f0ec0b;
+  border: 1px solid black;
+  border-radius: 10px/100%;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  -webkit-appearance: none;
+  margin-top: -7px;
+}
+
+input[type="range"]::-moz-range-track {
+  border-radius: 10px/100%;
+  height: 5px;
+  border: 1px solid cyan;
+  background-color: #fff;
+}
+
+input[type="range"]::-moz-range-thumb {
+  background: #ecf0f1;
+  border: 1px solid cyan;
+  border-radius: 10px/100%;
+  cursor: pointer;
 }
